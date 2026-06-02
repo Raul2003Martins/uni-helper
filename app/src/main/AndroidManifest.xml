@@ -11,14 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UniHelper">
+        <!-- Parent activity serve para mostrar seta de voltar no optionsMenu -->
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.CadastroActivity"
+            android:exported="false"
+            android:parentActivityName=".Activities.LoginActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".Activities.LoginActivity"
+            />
+        </activity>
+        <activity
+            android:name=".Activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:exported="true">
         </activity>
     </application>
 
