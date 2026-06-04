@@ -1,4 +1,5 @@
 plugins {
+
     alias(libs.plugins.android.application)
 }
 
@@ -36,6 +37,9 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
+    implementation ("com.google.firebase:firebase-storage")
+    implementation ("com.google.firebase:firebase-firestore")
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
