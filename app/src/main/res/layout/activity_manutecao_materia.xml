@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.CadastroMateriaActivity">
+    tools:context=".Activities.ManutecaoMateria">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -21,21 +21,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cadastro de Matérias"
+                android:text="Editar Matéria"
                 android:textColor="#040404"
                 android:textSize="30sp" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="voltar"
-                app:srcCompat="@android:drawable/ic_menu_revert" />
+                android:src="@android:drawable/ic_menu_revert" />
         </LinearLayout>
 
         <Space
@@ -43,7 +43,7 @@
             android:layout_height="43dp" />
 
         <EditText
-            android:id="@+id/edtMateria"
+            android:id="@+id/edtMateriaManu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -51,7 +51,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/edtNota"
+            android:id="@+id/edtNotaManu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -59,7 +59,7 @@
             android:inputType="number" />
 
         <EditText
-            android:id="@+id/edtData"
+            android:id="@+id/edtDataManu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -67,7 +67,7 @@
             android:inputType="date" />
 
         <EditText
-            android:id="@+id/edtFormula"
+            android:id="@+id/edtFormulaManu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -76,13 +76,18 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="309dp" />
+            android:layout_height="236dp" />
 
         <Button
-            android:id="@+id/btnSalvarMateria"
+            android:id="@+id/btnAlterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salvar" />
+            android:text="Alterar" />
 
+        <Button
+            android:id="@+id/btnDeletar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deletar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

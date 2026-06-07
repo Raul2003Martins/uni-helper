@@ -17,12 +17,10 @@ import br.edu.fatecguarulhos.unihelper.Models.Usuario;
 public class MateriaDAO {
 
     private CollectionReference materiaColletion;
-    private FirebaseAuth auth;
     private Context context;
 
     public MateriaDAO(Context context){
         materiaColletion = FirebaseFirestore.getInstance().collection("materia");
-        auth = FirebaseAuth.getInstance();
         this.context = context;
     }
 
@@ -32,7 +30,6 @@ public class MateriaDAO {
     }
 
     private void registrarMateriaFirebaseAuth(Materia materia){
-
     }
     private void salvarMateriaFirestore(Materia materia){
         materiaColletion.add(materia)
