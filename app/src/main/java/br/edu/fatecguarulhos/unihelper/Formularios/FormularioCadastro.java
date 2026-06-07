@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+
 public class FormularioCadastro {
     private EditText editNome, editEmail, editSenha, editConfirmarSenha;
     private List<EditText> campos;
@@ -65,5 +67,12 @@ public class FormularioCadastro {
             return false;
         }
         else return true;
+    }
+    public Usuario getUsuario(){
+        Usuario usuario = new Usuario();
+        usuario.setNome(editNome.getText().toString());
+        usuario.setEmail(editEmail.getText().toString());
+        usuario.setSenha(editEmail.getText().toString());
+        return usuario;
     }
 }

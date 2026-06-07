@@ -41,6 +41,7 @@ public class CadastroActivity extends AppCompatActivity {
         editConfirmarSenha = findViewById(R.id.edit_confirmarSenha_cadastro);
         auth = FirebaseAuth.getInstance();
         formulario = new FormularioCadastro(editNome, editEmail, editSenha, editConfirmarSenha);
+        usuarioDAO = new UsuarioDAO(this);
     }
     public void cadastrarUsuario(View view){
         if(formulario.formularioValido()) {
