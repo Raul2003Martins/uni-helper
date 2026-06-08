@@ -11,9 +11,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.Formularios.FormularioMateria;
 import br.edu.fatecguarulhos.unihelper.Models.Materia;
@@ -22,7 +19,7 @@ import br.edu.fatecguarulhos.unihelper.R;
 public class CadastroMateriaActivity extends AppCompatActivity {
 
     private Button btnSalvar;
-    private EditText edtMateria, edtNota, edtData, edtFormula;
+    private EditText edtMateria, edtQtdAvaliacoes, edtData, edtFormula;
     private FormularioMateria formMateria;
     private MateriaDAO materiaDAO;
 
@@ -43,10 +40,10 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     private void iniciaizarComponentes() {
         btnSalvar = findViewById(R.id.btnSalvarMateria);
         edtMateria = findViewById(R.id.edtMateria);
-        edtNota = findViewById(R.id.edtNota);
+        edtQtdAvaliacoes = findViewById(R.id.edtQtdAvaliacoes);
         edtData = findViewById(R.id.edtData);
         edtFormula = findViewById(R.id.edtFormula);
-        formMateria = new FormularioMateria(edtMateria, edtNota, edtData, edtFormula);
+        formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtData, edtFormula);
         materiaDAO = new MateriaDAO(this);
     }
     private void configurarComponentes(){
@@ -64,7 +61,7 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     private Materia criarMateria(){
         Materia materia = new Materia();
         materia.setNome(edtMateria.getText().toString());
-        materia.setNota(Float.valueOf(edtNota.getText().toString()));
+        materia.setQtdAvaliacoes(Integer.valueOf(edtQtdAvaliacoes.getText().toString()));
         materia.setData(formMateria.getDataMateria());
         materia.setFormulaMedia(edtFormula.getText().toString());
         return materia;

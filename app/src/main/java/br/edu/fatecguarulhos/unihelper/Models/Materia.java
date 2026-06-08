@@ -1,12 +1,11 @@
 package br.edu.fatecguarulhos.unihelper.Models;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Materia {
 
     private String nome, formulaMedia;
-    private float nota;
+    private int qtdAvaliacoes;
     private LocalDate dataProva;
 
     public String getNome() { return nome; }
@@ -17,9 +16,9 @@ public class Materia {
 
     public void setFormulaMedia(String formulaMedia) { this.formulaMedia = formulaMedia; }
 
-    public float getNota() { return nota; }
+    public int getQtdAvaliacoes() { return qtdAvaliacoes; }
 
-    public void setNota(float nota) { this.nota = nota; }
+    public void setQtdAvaliacoes(int qtdAvaliacoes) { this.qtdAvaliacoes = qtdAvaliacoes; }
 
     public LocalDate getData() { return dataProva; }
 

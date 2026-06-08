@@ -24,7 +24,7 @@
                 android:text="Materia: " />
 
             <TextView
-                android:id="@+id/edtNota"
+                android:id="@+id/edtQtdAvaliacoes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nota" />

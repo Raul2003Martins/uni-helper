@@ -27,11 +27,11 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/edtNota"
+            android:id="@+id/edtQtdAvaliacoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Nota Atual da Matéria"
+            android:hint="Quantidade de avaliações"
             android:inputType="number" />
 
         <EditText
