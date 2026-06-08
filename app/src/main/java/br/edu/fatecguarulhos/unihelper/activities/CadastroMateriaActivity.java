@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.formularios.FormularioMateria;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
@@ -44,7 +46,7 @@ public class CadastroMateriaActivity extends AppCompatActivity {
         edtData = findViewById(R.id.edtData);
         edtFormula = findViewById(R.id.edtFormula);
         formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtData, edtFormula);
-        materiaDAO = new MateriaDAO(this);
+        materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid().toString());
     }
     private void configurarComponentes(){
         edtData.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +58,7 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     }
     public void salvarMateria(View view){
         if(formMateria.camposValidos())
-            materiaDAO.cadastrarMateria(criarMateria());
+            materiaDAO.cadastrarMateria(criarMateria(), FirebaseAuth.getInstance().getUid());
     }
     private Materia criarMateria(){
         Materia materia = new Materia();

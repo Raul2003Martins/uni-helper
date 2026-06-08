@@ -9,21 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fatecguarulhos.unihelper.models.Materia;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class MateriaDAO {
 
     private CollectionReference materiaColletion;
     private Context context;
 
-    public MateriaDAO(Context context){
-        materiaColletion = FirebaseFirestore.getInstance().collection("materia");
+
+    public MateriaDAO(Context context, String idAluno){
+        materiaColletion = FirebaseFirestore.getInstance().collection(idAluno);
         this.context = context;
     }
 
-    public void cadastrarMateria(Materia materia){
-        salvarMateriaFirestore(materia);
+    public void cadastrarMateria(Materia materia, String idAluno){
+        salvarMateriaFirestore(materia,idAluno);
     }
-    private void salvarMateriaFirestore(Materia materia){
+    private void salvarMateriaFirestore(Materia materia, String idAluno){
         /*
         materiaColletion.add(materia)
                 .addOnSuccessListener(documentReference -> {
@@ -34,6 +36,8 @@ public class MateriaDAO {
                 }).addOnFailureListener(
                         e ->{System.out.println("Erro -> " + e.getStackTrace());}
                 );
+
+
     }
     public List<Materia> buscarMateriasPorAluno(String idAluno){
         List<Materia> materias = new ArrayList<>();
