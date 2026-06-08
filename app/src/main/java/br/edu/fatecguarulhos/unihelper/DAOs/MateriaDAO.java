@@ -5,6 +5,9 @@ import android.content.Context;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class MateriaDAO {
@@ -18,11 +21,7 @@ public class MateriaDAO {
     }
 
     public void cadastrarMateria(Materia materia){
-        registrarMateriaFirebaseAuth(materia);
         salvarMateriaFirestore(materia);
-    }
-
-    private void registrarMateriaFirebaseAuth(Materia materia){
     }
     private void salvarMateriaFirestore(Materia materia){
         /*
@@ -35,5 +34,12 @@ public class MateriaDAO {
                 }).addOnFailureListener(
                         e ->{System.out.println("Erro -> " + e.getStackTrace());}
                 );
+    }
+    public List<Materia> buscarMateriasPorAluno(String idAluno){
+        List<Materia> materias = new ArrayList<>();
+        materiaColletion.whereEqualTo("", idAluno).get().addOnCompleteListener(task -> {
+            materias.add(new Materia());
+        });
+        return materias;
     }
 }

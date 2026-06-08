@@ -32,7 +32,7 @@ public class FormularioCadastro {
     private Boolean validarEmail(){
         String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
-        String email = editEmail.getText().toString();
+        String email = editEmail.getText().toString().trim();
         if (email.isBlank()) {
                 return false;
             }
@@ -44,14 +44,14 @@ public class FormularioCadastro {
 
     private Boolean validarSenha(){
         boolean valido = false;
-        String senha = editSenha.getText().toString();
+        String senha = editSenha.getText().toString().trim();
         if(senha.isBlank()) editSenha.setError("");
         else if(senha.length() < 6) editSenha.setError("Mínimo de 6 caracteres");
         else valido = true;
         return valido;
     }
     private Boolean senhasBatem(){
-        String senha = editSenha.getText().toString();
+        String senha = editSenha.getText().toString().trim();
         String confirmarSenha = editConfirmarSenha.getText().toString();
         if(senha.isBlank() || confirmarSenha.isBlank())
             return false;
