@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void efetuarLogin(View view){
-        String email = editEmail.getText().toString();
-        String senha = editSenha.getText().toString();
+        String email = editEmail.getText().toString().trim();
+        String senha = editSenha.getText().toString().trim();
         if(inputVazio(email, senha)) return;
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
