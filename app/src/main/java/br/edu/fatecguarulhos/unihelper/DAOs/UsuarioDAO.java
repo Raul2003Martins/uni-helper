@@ -27,7 +27,6 @@ public class UsuarioDAO {
     public void cadastrarUsuario(Usuario usuario){
         try{
             registrarUsuarioFirebaseAuth(usuario);
-            salvarUsuarioFirestore(usuario);
         } catch (Exception e){
             System.out.println("ERRO -> " +e.getStackTrace());
         }
@@ -38,6 +37,7 @@ public class UsuarioDAO {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     usuario.setId(task.getResult().getUser().getUid());
+                    salvarUsuarioFirestore(usuario);
                 }else {
                     throw new RuntimeException("Usuário não pôde ser cadastrado");
                 }
@@ -45,9 +45,9 @@ public class UsuarioDAO {
         });
     }
     private void salvarUsuarioFirestore(Usuario usuario){
-        DocumentReference docReference = FirebaseFirestore.getInstance().collection("usuarios").document();
-        String uid = docReference.getId();
-        usuario.setId(uid);
+        DocumentReference docReference = FirebaseFirestore.getInstance().collection("usuarios").document(usuario.getId());
+        //String uid = docReference.getId();
+        //usuario.setId(uid);
         docReference.set(usuario).addOnSuccessListener(documentReference -> {
             Log.d("","Usuario cadastrado");
         }).addOnFailureListener( e ->{
