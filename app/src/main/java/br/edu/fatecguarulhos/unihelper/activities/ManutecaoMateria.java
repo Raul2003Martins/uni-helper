@@ -71,6 +71,9 @@ public class ManutecaoMateria extends AppCompatActivity {
         materia.setDataProva(edtData.getText().toString());
         materia.setFormulaMedia(edtFormula.getText().toString());
     }
+    public void deletarMateria(View view){
+        materiaDAO.deleteMateria(materia);
+    }
 
     public void voltar(View view){
         finish();
