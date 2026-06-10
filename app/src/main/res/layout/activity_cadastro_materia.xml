@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.CadastroMateriaActivity">
+    tools:context=".activities.CadastroMateriaActivity">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -13,30 +13,6 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:background="#2196F3"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cadastro de Matérias"
-                android:textColor="#040404"
-                android:textSize="30sp" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="voltar"
-                app:srcCompat="@android:drawable/ic_menu_revert" />
-        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
@@ -51,17 +27,19 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/edtNota"
+            android:id="@+id/edtQtdAvaliacoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Nota Atual da Matéria"
+            android:hint="Quantidade de avaliações"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/edtData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
             android:ems="10"
             android:hint="Data da Proxima Prova/Projeto"
             android:inputType="date" />
@@ -82,6 +60,7 @@
             android:id="@+id/btnSalvarMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="salvarMateria"
             android:text="Salvar" />
 
     </LinearLayout>

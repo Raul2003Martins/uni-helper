@@ -1,12 +1,15 @@
-package br.edu.fatecguarulhos.unihelper.Activities;
+package br.edu.fatecguarulhos.unihelper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -82,5 +85,24 @@ public class MainActivity extends AppCompatActivity {
         it = new Intent(getApplicationContext(), PerfilActivity.class);
         startActivity(it);
     }
+    public void perfil(){
+        it = new Intent(getApplicationContext(), PerfilActivity.class);
+        startActivity(it);
+    }
+    public void cadastrarMaterias(){
+        it = new Intent(getApplicationContext(), CadastroMateriaActivity.class);
+        startActivity(it);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.item_perfil) perfil();
+        if(item.getItemId() == R.id.item_novaMateria) cadastrarMaterias();
+        return super.onOptionsItemSelected(item);
+    }
 }

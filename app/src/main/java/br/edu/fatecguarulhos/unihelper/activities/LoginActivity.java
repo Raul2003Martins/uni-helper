@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Activities;
+package br.edu.fatecguarulhos.unihelper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,8 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void efetuarLogin(View view){
-        String email = editEmail.getText().toString();
-        String senha = editSenha.getText().toString();
+        String email = editEmail.getText().toString().trim();
+        String senha = editSenha.getText().toString().trim();
+        if(inputVazio(email, senha)) return;
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -63,6 +64,19 @@ public class LoginActivity extends AppCompatActivity {
                         else Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private boolean inputVazio(String email, String senha){
+        boolean inputVazio = false;
+        if(email.isBlank()){
+            inputVazio = true;
+            editEmail.setError("Campo não pode estar vazio!");
+        }
+        if(senha.isBlank()){
+            inputVazio = true;
+            editSenha.setError("Campo não pode estar vazio!");
+        }
+        return inputVazio;
     }
 
 }

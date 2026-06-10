@@ -1,8 +1,9 @@
-package br.edu.fatecguarulhos.unihelper.Activities;
+package br.edu.fatecguarulhos.unihelper.activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAO;
-import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAORealtime;
-import br.edu.fatecguarulhos.unihelper.Formularios.FormularioCadastro;
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.formularios.FormularioCadastro;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 import br.edu.fatecguarulhos.unihelper.R;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -49,6 +49,7 @@ public class CadastroActivity extends AppCompatActivity {
                 usuarioDAO = new UsuarioDAO(this);
                 Usuario u = criarUsuario();
                 usuarioDAO.cadastrarUsuario(u);
+                Toast.makeText(this, "Cadastro efetuado!", Toast.LENGTH_SHORT).show();
             } catch (Exception e){
                 System.out.println(e.getStackTrace());
             }
@@ -56,9 +57,9 @@ public class CadastroActivity extends AppCompatActivity {
     }
     private Usuario criarUsuario(){
         Usuario usuario = new Usuario();
-        usuario.setNome(editNome.getText().toString());
-        usuario.setEmail(editEmail.getText().toString());
-        usuario.setSenha(String.valueOf(editNome.getText().toString().hashCode()));
+        usuario.setNome(editNome.getText().toString().trim());
+        usuario.setEmail(editEmail.getText().toString().trim());
+        usuario.setSenha(String.valueOf(editSenha.getText().toString().trim()));
         return usuario;
     }
 }

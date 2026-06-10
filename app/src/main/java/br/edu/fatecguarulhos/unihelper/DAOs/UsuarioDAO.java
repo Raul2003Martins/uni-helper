@@ -2,7 +2,6 @@ package br.edu.fatecguarulhos.unihelper.DAOs;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -11,12 +10,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import br.edu.fatecguarulhos.unihelper.Activities.CadastroActivity;
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class UsuarioDAO {
     private CollectionReference usuariosCollection;
@@ -30,7 +27,6 @@ public class UsuarioDAO {
     public void cadastrarUsuario(Usuario usuario){
         try{
             registrarUsuarioFirebaseAuth(usuario);
-            salvarUsuarioFirestore(usuario);
         } catch (Exception e){
             System.out.println("ERRO -> " +e.getStackTrace());
         }
@@ -41,6 +37,7 @@ public class UsuarioDAO {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     usuario.setId(task.getResult().getUser().getUid());
+                    salvarUsuarioFirestore(usuario);
                 }else {
                     throw new RuntimeException("Usuário não pôde ser cadastrado");
                 }
@@ -48,11 +45,13 @@ public class UsuarioDAO {
         });
     }
     private void salvarUsuarioFirestore(Usuario usuario){
-        FirebaseFirestore.getInstance().collection("usuarios").add(usuario)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d("","Usuario cadastrado");
-                }).addOnFailureListener( e ->{
-                    Log.e("",e.getMessage());
-                });
+        DocumentReference docReference = FirebaseFirestore.getInstance().collection("usuarios").document(usuario.getId());
+        //String uid = docReference.getId();
+        //usuario.setId(uid);
+        docReference.set(usuario).addOnSuccessListener(documentReference -> {
+            Log.d("","Usuario cadastrado");
+        }).addOnFailureListener( e ->{
+            Log.e("",e.getMessage());
+        });
     }
 }

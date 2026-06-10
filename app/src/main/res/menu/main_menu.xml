@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/item_novaMateria"
         android:icon="@drawable/outline_add_24"
-        android:title="Item"
+        android:title="Nova matéria"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/item_perfil"
         android:icon="@drawable/baseline_person_24"
-        android:title="Item"
+        android:title="Perfil"
         app:showAsAction="ifRoom" />
 </menu>
