@@ -79,6 +79,12 @@ public class ManutecaoMateria extends AppCompatActivity {
         definirOnTextChanged();
         inicializarSpinner();
         atualizarMedia();
+        edtData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                formMateria.mostrarEscolhaDateTime(edtData, view.getContext());
+            }
+        });
     }
     private void inicializarSpinner(){
         atualizarTamanhoSpinner(materia.getQtdAvaliacoes());
