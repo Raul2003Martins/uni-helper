@@ -80,7 +80,7 @@ public class MateriaDAO {
         materiaColletion.document(uidAluno)
                 .update(("materias." + materia.getId()), FieldValue.delete())
                 .addOnSuccessListener(aVoid -> {
-
+                    Toast.makeText(context, "Matéria excluida!", Toast.LENGTH_SHORT).show();
                 });
     }
 }

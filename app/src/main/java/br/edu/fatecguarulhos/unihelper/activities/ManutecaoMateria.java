@@ -149,6 +149,7 @@ public class ManutecaoMateria extends AppCompatActivity {
 
     public void deletarMateria(View view){
         materiaDAO.deleteMateria(materia);
+        finish();
     }
 
     public void voltar(View view){
