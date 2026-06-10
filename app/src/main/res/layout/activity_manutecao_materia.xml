@@ -65,6 +65,7 @@
             android:id="@+id/btnDeletar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="deletarMateria"
             android:text="Deletar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

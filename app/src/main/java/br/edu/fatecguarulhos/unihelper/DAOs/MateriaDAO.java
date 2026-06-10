@@ -75,4 +75,11 @@ public class MateriaDAO {
             }
         });
     }
+    public void deleteMateria(Materia materia){
+        materiaColletion.document(uidAluno)
+                .update(("materias." + materia.getId()), FieldValue.delete())
+                .addOnSuccessListener(aVoid -> {
+
+                });
+    }
 }
