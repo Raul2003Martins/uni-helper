@@ -23,10 +23,6 @@ public class Materia {
     public void setId(String id) {
         this.id = id;
     }
-    public void generateId(){
-        UUID uniqueKey = UUID.randomUUID();
-        id = uniqueKey.toString();
-    }
 
     public String getDataProva() {
         return dataProva;

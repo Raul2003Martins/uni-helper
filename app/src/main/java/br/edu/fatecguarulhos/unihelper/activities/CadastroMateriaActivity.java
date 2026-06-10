@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.UUID;
+
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.formularios.FormularioMateria;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
@@ -24,6 +26,7 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     private EditText edtMateria, edtQtdAvaliacoes, edtMediaMinima, edtData, edtFormula;
     private FormularioMateria formMateria;
     private MateriaDAO materiaDAO;
+    private String idMateria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,13 @@ public class CadastroMateriaActivity extends AppCompatActivity {
         iniciaizarComponentes();
         configurarComponentes();
     }
+    public void generateId(){
+        UUID uniqueKey = UUID.randomUUID();
+        idMateria = uniqueKey.toString();
+    }
 
     private void iniciaizarComponentes() {
+        generateId();
         btnSalvar = findViewById(R.id.btnSalvarMateria);
         edtMateria = findViewById(R.id.edtMateria);
         edtQtdAvaliacoes = findViewById(R.id.edtQtdAvaliacoes);
@@ -63,7 +71,7 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     }
     private Materia criarMateria(){
         Materia materia = new Materia();
-        materia.generateId();
+        materia.setId(idMateria);
         materia.setNome(edtMateria.getText().toString());
         materia.setQtdAvaliacoes(Integer.parseInt(edtQtdAvaliacoes.getText().toString()));
         materia.setMediaMinima(Double.parseDouble(edtMediaMinima.getText().toString()));
