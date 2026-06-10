@@ -58,6 +58,7 @@
             android:id="@+id/btnAlterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="salvarMateria"
             android:text="Alterar" />
 
         <Button

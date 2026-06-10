@@ -12,15 +12,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
+import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.R;
+import br.edu.fatecguarulhos.unihelper.formularios.FormularioMateria;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class ManutecaoMateria extends AppCompatActivity {
 
     private EditText edtMateriaManu, edtNotaManu, edtDataManu, edtFormulaManu;
     private Materia materia;
+    private FormularioMateria formMateria;
+    private MateriaDAO materiaDAO;
     private Button btnAlterar, btnDeletar;
 
     @Override
@@ -45,13 +50,26 @@ public class ManutecaoMateria extends AppCompatActivity {
         edtFormulaManu = findViewById(R.id.edtFormulaManu);
         btnDeletar = findViewById(R.id.btnDeletar);
         btnAlterar = findViewById(R.id.btnAlterar);
+        formMateria = new FormularioMateria(edtMateriaManu, edtNotaManu, edtDataManu, edtFormulaManu);
+        materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid());
     }
     private void configurarComponentes(){
         edtMateriaManu.setText(materia.getNome());
         edtDataManu.setText(materia.getDataProva());
         edtFormulaManu.setText(materia.getFormulaMedia());
         edtNotaManu.setText(String.valueOf(materia.getQtdAvaliacoes()));
-
+    }
+    public void salvarMateria(View view){
+        if(formMateria.camposValidos()){
+            atualizarMateria();
+            materiaDAO.atualizarMateria(materia);
+        }
+    }
+    private void atualizarMateria(){
+        materia.setNome(edtMateriaManu.getText().toString());
+        materia.setQtdAvaliacoes(Integer.valueOf(edtNotaManu.getText().toString()));
+        materia.setDataProva(edtDataManu.getText().toString());
+        materia.setFormulaMedia(edtFormulaManu.getText().toString());
     }
 
     public void voltar(View view){

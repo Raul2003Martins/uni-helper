@@ -40,14 +40,10 @@ public class MateriaDAO {
     public void cadastrarMateria(Materia materia){
         salvarMateriaFirestore(materia);
     }
+    public void atualizarMateria(Materia materia){
+        salvarMateriaFirestore(materia);
+    }
     private void salvarMateriaFirestore(Materia materia){
-        /*
-        materiaColletion.document(uidAluno)
-                .update("materias", FieldValue.arrayUnion(materia))
-                .addOnSuccessListener(aVoid -> {
-
-        });
-         */
         materiaColletion.document(uidAluno)
                 .update(("materias." + materia.getId()), materia)
                 .addOnSuccessListener(aVoid -> {
