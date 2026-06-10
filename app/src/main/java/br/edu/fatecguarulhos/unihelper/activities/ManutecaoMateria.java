@@ -73,8 +73,6 @@ public class ManutecaoMateria extends AppCompatActivity {
         definirOnTextChanged();
         inicializarSpinner();
     }
-
-
     private void inicializarSpinner(){
         atualizarTamanhoSpinner(materia.getQtdAvaliacoes());
         spnAtividades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -88,6 +86,7 @@ public class ManutecaoMateria extends AppCompatActivity {
 
             }
         });
+        //exibitNotaAtividade("A1");
     }
     private void exibitNotaAtividade(String atividade){
         edtNotaAtividade.setText(String.valueOf(notas.get(atividade) == null ? 0 : notas.get(atividade)));
