@@ -70,30 +70,13 @@ public class ManutecaoMateria extends AppCompatActivity {
         edtData.setText(materia.getDataProva());
         edtFormula.setText(materia.getFormulaMedia());
         edtQtdAvaliacoes.setText(String.valueOf(materia.getQtdAvaliacoes()));
-        edtNotaAtividade.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable editable) {
-                //atualizarNota();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //atualizarNota();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                atualizarNota();
-            }
-        });
+        definirOnTextChanged();
         inicializarSpinner();
     }
+
+
     private void inicializarSpinner(){
-        String[] items = new String[materia.getQtdAvaliacoes()];
-        for(int i = 0; i < items.length; i++)
-            items[i] = "A" + (i+1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        spnAtividades.setAdapter(adapter);
+        atualizarTamanhoSpinner(materia.getQtdAvaliacoes());
         spnAtividades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -105,7 +88,6 @@ public class ManutecaoMateria extends AppCompatActivity {
 
             }
         });
-        //exibitNotaAtividade("A1");
     }
     private void exibitNotaAtividade(String atividade){
         edtNotaAtividade.setText(String.valueOf(notas.get(atividade) == null ? 0 : notas.get(atividade)));
@@ -124,16 +106,72 @@ public class ManutecaoMateria extends AppCompatActivity {
     }
     private void atualizarMateria(){
         materia.setNome(edtMateria.getText().toString());
+        if(materia.getQtdAvaliacoes() > Integer.valueOf(edtQtdAvaliacoes.getText().toString())){
+            deletarNotasAtividadesEliminadas(materia.getQtdAvaliacoes(), Integer.valueOf(edtQtdAvaliacoes.getText().toString()));
+
+        }
         materia.setQtdAvaliacoes(Integer.valueOf(edtQtdAvaliacoes.getText().toString()));
         materia.setDataProva(edtData.getText().toString());
         materia.setFormulaMedia(edtFormula.getText().toString());
         materia.setNotas(notas);
     }
+    private void deletarNotasAtividadesEliminadas(int qtdAvaliacoes, Integer notaQtdAvaliacoes) {
+        for(int i = notaQtdAvaliacoes; i < qtdAvaliacoes; i ++){
+            if(notas.get(("A"+i)) != null) notas.remove("A"+i);
+        }
+    }
+    private void atualizarTamanhoSpinner(int tamanhoAtual){
+        String[] items = new String[tamanhoAtual];
+        for(int i = 0; i < items.length; i++)
+            items[i] = "A" + (i+1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        spnAtividades.setAdapter(adapter);
+    }
+
     public void deletarMateria(View view){
         materiaDAO.deleteMateria(materia);
     }
 
     public void voltar(View view){
         finish();
+    }
+    private void definirOnTextChanged() {
+        edtQtdAvaliacoes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int valorEdtNota = Integer.parseInt((
+                        edtQtdAvaliacoes.getText().toString().isEmpty() ?
+                                "1":
+                                edtQtdAvaliacoes.getText().toString()
+                ));
+                atualizarTamanhoSpinner(valorEdtNota);
+            }
+        });
+        edtNotaAtividade.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //atualizarNota();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //atualizarNota();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                atualizarNota();
+            }
+        });
     }
 }
