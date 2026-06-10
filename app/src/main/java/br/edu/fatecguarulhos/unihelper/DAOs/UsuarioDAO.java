@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import br.edu.fatecguarulhos.unihelper.models.Usuario;
@@ -26,7 +27,6 @@ public class UsuarioDAO {
     public void cadastrarUsuario(Usuario usuario){
         try{
             registrarUsuarioFirebaseAuth(usuario);
-            salvarUsuarioFirestore(usuario);
         } catch (Exception e){
             System.out.println("ERRO -> " +e.getStackTrace());
         }
@@ -37,6 +37,7 @@ public class UsuarioDAO {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     usuario.setId(task.getResult().getUser().getUid());
+                    salvarUsuarioFirestore(usuario);
                 }else {
                     throw new RuntimeException("Usuário não pôde ser cadastrado");
                 }
@@ -44,11 +45,13 @@ public class UsuarioDAO {
         });
     }
     private void salvarUsuarioFirestore(Usuario usuario){
-        FirebaseFirestore.getInstance().collection("usuarios").add(usuario)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d("","Usuario cadastrado");
-                }).addOnFailureListener( e ->{
-                    Log.e("",e.getMessage());
-                });
+        DocumentReference docReference = FirebaseFirestore.getInstance().collection("usuarios").document(usuario.getId());
+        //String uid = docReference.getId();
+        //usuario.setId(uid);
+        docReference.set(usuario).addOnSuccessListener(documentReference -> {
+            Log.d("","Usuario cadastrado");
+        }).addOnFailureListener( e ->{
+            Log.e("",e.getMessage());
+        });
     }
 }

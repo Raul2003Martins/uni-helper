@@ -1,13 +1,25 @@
 package br.edu.fatecguarulhos.unihelper.DAOs;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import br.edu.fatecguarulhos.unihelper.interfaces.FirebaseCallback;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
 import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
@@ -15,35 +27,48 @@ public class MateriaDAO {
 
     private CollectionReference materiaColletion;
     private Context context;
+    private String uidAluno;
 
 
-    public MateriaDAO(Context context, String idAluno){
-        materiaColletion = FirebaseFirestore.getInstance().collection(idAluno);
+    public MateriaDAO(Context context, String uidAluno){
+        materiaColletion = FirebaseFirestore.getInstance().collection("usuarios");
         this.context = context;
+        this.uidAluno = uidAluno;
     }
 
-    public void cadastrarMateria(Materia materia, String idAluno){
-        salvarMateriaFirestore(materia,idAluno);
+    public void cadastrarMateria(Materia materia){
+        salvarMateriaFirestore(materia);
     }
-    private void salvarMateriaFirestore(Materia materia, String idAluno){
-        /*
-        materiaColletion.add(materia)
-                .addOnSuccessListener(documentReference -> {
-                }).addOnFailureListener( e ->{System.out.println("Erro -> " + e.getStackTrace());});
-         */
-        materiaColletion.document(materia.getNome()).set(materia)
-                .addOnSuccessListener(documentReference -> {
-                }).addOnFailureListener(
-                        e ->{System.out.println("Erro -> " + e.getStackTrace());}
-                );
+    private void salvarMateriaFirestore(Materia materia){
+        materiaColletion.document(uidAluno)
+                .update("materias", FieldValue.arrayUnion(materia))
+                .addOnSuccessListener(aVoid -> {
 
-
-    }
-    public List<Materia> buscarMateriasPorAluno(String idAluno){
-        List<Materia> materias = new ArrayList<>();
-        materiaColletion.whereEqualTo("", idAluno).get().addOnCompleteListener(task -> {
-            materias.add(new Materia());
         });
-        return materias;
+    }
+    public void getMaterias(FirebaseCallback callback){
+
+        DocumentReference docRef = materiaColletion.document(uidAluno);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        Usuario aluno = document.toObject(Usuario.class);
+
+                        if (aluno != null && aluno.getMaterias() != null) {
+                            List<Materia> materiaList = aluno.getMaterias();
+                            callback.onCallbackForAll(materiaList);
+                        }
+                    } else {
+                        Log.d("FirestoreData", "No such document exists");
+                    }
+                } else {
+                    Log.d("FirestoreData", "Fetch failed with: ", task.getException());
+                }
+            }
+        });
     }
 }
