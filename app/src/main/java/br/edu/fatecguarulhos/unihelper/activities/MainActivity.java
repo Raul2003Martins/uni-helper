@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import br.edu.fatecguarulhos.unihelper.Models.Materia;
+import br.edu.fatecguarulhos.unihelper.models.Materia;
 import br.edu.fatecguarulhos.unihelper.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         lwMaterias = findViewById(R.id.lwMaterias);
         listaMaterias = new ArrayList<>();
-        carregarMaterias();
 
         lwMaterias.setOnItemClickListener((parent, view, position, id) -> {
             Materia materiaSelecionada = listaMaterias.get(position);
@@ -55,42 +54,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void carregarMaterias(){
-        FirebaseFirestore.getInstance().collection("materia").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    listaMaterias.clear();
-                    for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
-                        Materia materia = doc.toObject(Materia.class);
-                        materia.setId(doc.getId());
-                        listaMaterias.add(materia);
-                    }
-                    listaMaterias.sort(Comparator.comparing(Materia::getData));
-
-                    ArrayList<String> nomes = new ArrayList<>();
-                    for(Materia materia : listaMaterias){
-                        nomes.add(materia.getNome());
-                    }
-
-                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,nomes);
-                });
-        lwMaterias.setAdapter(adapter);
-    }
-
-    public void cadastrarMaterias(View view){
-        it = new Intent(getApplicationContext(), CadastroMateriaActivity.class);
-        startActivity(it);
-    }
-
-    public void perfil(View view){
-        it = new Intent(getApplicationContext(), PerfilActivity.class);
-        startActivity(it);
-    }
     public void perfil(){
         it = new Intent(getApplicationContext(), PerfilActivity.class);
         startActivity(it);
     }
     public void cadastrarMaterias(){
         it = new Intent(getApplicationContext(), CadastroMateriaActivity.class);
+        startActivity(it);
+    }
+    public void chat(View view){
+        it = new Intent(getApplicationContext(), ChatActivities.class);
         startActivity(it);
     }
     @Override
