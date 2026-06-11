@@ -78,7 +78,7 @@
             android:id="@+id/button_cadastro_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#301054"
+            android:backgroundTint="#2a71e5 "
             android:onClick="cadastrarUsuario"
             android:text="Cadastrar" />
     </LinearLayout>
